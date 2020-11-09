@@ -170,7 +170,47 @@ Do move a file or folder from one point to an other you need to specify first th
         }
     });
 ```
+* Rename a File/Folder
+to rename a element first provide the `nodeId` the access the right file/folder,
+then provide the new name of the element
+```javascript
+storage.on("ready", function () {
+        let id = `nodeId`;
+        if (storage.files[id]) {            
+            storage.files[id].rename("new Name", function (err, file) {
+                if (err) throw err;
+                console.log("file renamed", storage.files[id].name);
+            });
+        } else {
+            console.log("No such directory/files Existe with nodeId:", id);
+        }
+    });
+```
+in case you have to mage the extension of a file, to not loose information or the type of file
 
+```javascript
+storage.on("ready", function () {
+        let id = `nodeId`;
+        if (storage.files[id]) {
+            let dir = storage.files[id].directory ? true : false;
+            let name = storage.files[id].name;
+            let ext, len = null;
+            if (!dir) {
+                let explode = name.split(".");
+                let position = explode.length - 1;
+                ext = explode[position];
+            }
+            let rename = "new Name";
+            let torename = dir ? rename : `${rename}.${ext}`;
+            storage.files[id].rename(torename, function (err, file) {
+                if (err) throw err;
+                console.log("file renamed", storage.files[id].name);
+            });
+        } else {
+            console.log("No such directory/files Existe with nodeId:", id);
+        }
+    });
+```
 ## Contributing
 
 When contributing fork the project, clone it, run `npm install`, change the library as you want, run tests using `npm run test` and build the bundled versions using `npm run build`. Before creating a pull request, *please*, run tests.
