@@ -121,7 +121,7 @@ to create a directory very simple you just give the name of the directory
         console.log("Directory created with success:", file.name);
     });
 ```
-in case you want to add in a specic folder, you need to specify nodeId of the forlder
+in case you want to add in a specic folder, you need to specify `nodeId` of the forlder
 
 ```
   storage.mkdir({
@@ -135,8 +135,9 @@ in case you want to add in a specic folder, you need to specify nodeId of the fo
     });
 ```
 * Delete a file/directory
-to delete a file or directory, you need to specify the nodeId of the target,
+to delete a file or directory, you need to specify the `nodeId` of the target,
 more that when you delete a folder from the root it goes on the `Rubbin Bin`.
+to do theis operation the status should be on `ready` mode.
 ```javascript
   let nodeid='abcdef';
   storage.on("ready", function () {
@@ -147,6 +148,25 @@ more that when you delete a folder from the root it goes on the `Rubbin Bin`.
             });
         } else {
             console.error("no such node:", nodeId);
+        }
+    });
+```
+* Move a File or Folder
+Do move a file or folder from one point to an other you need to specify first the `nodeId` of the folder or file to be moved, then the `nodeId`, of the source where it will go and shoud be a folder.
+
+```javascript
+  storage.on("ready", function () {        
+        let nodeId = ['abcde', 'jhijkl'];
+        let folder = nodeId[0]; // destination where to move to put the file/folder
+        let file = nodeId[2];// element to be moved file/folder
+        if (storage.files[file] && storage.files[folder]) {
+            storage.files[file].moveTo(folder, function (err, file) {
+                if (err) throw err;
+                
+                console.log(`file/directory has been moved`);
+            });
+        } else {
+            console.log("no file/directory correspond to nodeid:", folder, file);
         }
     });
 ```
