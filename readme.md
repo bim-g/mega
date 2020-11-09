@@ -134,6 +134,22 @@ in case you want to add in a specic folder, you need to specify nodeId of the fo
         console.log("Directory created with success:", file.name);
     });
 ```
+* Delete a file/directory
+to delete a file or directory, you need to specify the nodeId of the target,
+more that when you delete a folder from the root it goes on the `Rubbin Bin`.
+```javascript
+  let nodeid='abcdef';
+  storage.on("ready", function () {
+        if (storage.files[nodeId]) {
+            storage.files[nodeId].delete(function (err, file) {
+                if (err) throw err;
+                console.log(storage.files[nodeId].name);
+            });
+        } else {
+            console.error("no such node:", nodeId);
+        }
+    });
+```
 
 ## Contributing
 
