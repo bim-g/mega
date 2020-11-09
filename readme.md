@@ -50,7 +50,7 @@ As there were many changes there isn't any plan to merge those changes into the 
 
 ## Integration
 
-**Login to MEGA account
+* Login to MEGA account
 
 ```javascript
 // credential to connect to your mega account
@@ -67,7 +67,7 @@ As there were many changes there isn't any plan to merge those changes into the 
   
 ```
 
-**Display Files/Directories
+* Display Files/Directories
 
 ```javascript
 //display your files and directories form your aacounts
@@ -89,7 +89,7 @@ As there were many changes there isn't any plan to merge those changes into the 
 }
 ```
 
-**Upload Files to your account
+* Upload Files to your account
 
 ```javascript
   let filepath = "input.txt";
@@ -112,6 +112,27 @@ As there were many changes there isn't any plan to merge those changes into the 
                 console.log('Download from:', link);
             });
         });
+```
+* create a remote directory
+to create a directory very simple you just give the name of the directory
+```javascript
+  storage.mkdir("MyDirectory", function (err, file) {
+        if (err) throw err;
+        console.log("Directory created with success:", file.name);
+    });
+```
+in case you want to add in a specic folder, you need to specify nodeId of the forlder
+
+```
+  storage.mkdir({
+        name: "MyDirectory",
+        target: { // add this to specify the target to reach
+             nodeId: '********'
+         }
+    }, function (err, file) {
+        if (err) throw err;
+        console.log("Directory created with success:", file.name);
+    });
 ```
 
 ## Contributing
