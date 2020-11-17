@@ -2340,8 +2340,8 @@ class Storage extends events.EventEmitter {
     const handleV2Account = (info, cb) => {
       prepareKeyV2(Buffer.from(this.options.password), info, (err, result) => {
         if (err) return cb(err); // after generating the AES key the password isn't needed anymore
+        // delete this.options.password // to remove this, it block to send file one after another. the session is already died.
 
-        delete this.options.password;
         const aes = new AES(result.slice(0, 16));
         const uh = e64(result.slice(16));
         const request$$1 = {
