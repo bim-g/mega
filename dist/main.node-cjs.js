@@ -2325,8 +2325,8 @@ class Storage extends events.EventEmitter {
 
     const handleV1Account = cb => {
       const pw = prepareKey(Buffer.from(this.options.password)); // after generating the AES key the password isn't needed anymore
+      // delete this.options.password
 
-      delete this.options.password;
       const aes = new AES(pw);
       const uh = e64(aes.stringhash(Buffer.from(this.email)));
       const request$$1 = {
